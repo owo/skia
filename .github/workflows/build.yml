@@ -48,12 +48,7 @@ jobs:
       run: |
         git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
         echo "::add-path::${PWD}/depot_tools"
-    - name: Init Depot Tools (macOS, Linux)
-      if: runner.os != 'Windows'
-      run: ./depot_tools/update_depot_tools
-    - name: Init Depot Tools (Windows)
-      if: runner.os == 'Windows'
-      run: .\depot_tools\update_depot_tools.bat
+        gclient sync
     - name: Sync Deps
       env:
         GIT_SYNC_DEPS_SKIP_EMSDK: true
