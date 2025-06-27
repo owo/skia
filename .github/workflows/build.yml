@@ -43,6 +43,7 @@ jobs:
             libfontconfig-dev libgl1-mesa-dev
         fi
     - name: Download depot_tools (macOS, Linux)
+      if: runner.os != 'Windows'
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       run: |
@@ -51,6 +52,7 @@ jobs:
         echo "$DEPOT_TOOLS/python2-bin" >> $GITHUB_PATH
         echo "$DEPOT_TOOLS/python-bin" >> $GITHUB_PATH
     - name: Download depot_tools (Windows)
+      if: runner.os == 'Windows'
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       run: |
