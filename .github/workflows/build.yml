@@ -10,14 +10,10 @@ jobs:
       matrix:
         os: [windows-latest, macos-13, macos-latest, ubuntu-24.04]
         mode: [Release, Debug]
-        arch: [x64, x86, arm64]
+        arch: [x64, arm64]
         exclude:
           - os: macos-13
-            arch: x86
-          - os: macos-13
             arch: arm64
-          - os: macos-latest
-            arch: x86
           - os: macos-latest
             arch: x64
           - os: windows-latest
@@ -36,7 +32,7 @@ jobs:
         else
           sudo apt-get update -qq
           sudo apt-get install -y \
-            git g++ g++-multilib clang-18 pandoc dpkg-dev \
+            git g++ g++-multilib clang-19 pandoc dpkg-dev \
             libcurl4-openssl-dev libgif-dev libjpeg-dev \
             libz-dev libpng-dev libtinyxml-dev libpixman-1-dev \
             libx11-dev libxcursor-dev ninja-build zip unzip \
@@ -58,11 +54,11 @@ jobs:
       run: python3 tools/git-sync-deps
     - name: Fetch Ninja
       run: python3 bin/fetch-ninja
-    - name: Install LLVM and Clang 18
+    - name: Install LLVM and Clang 19
       if: runner.os == 'Windows'
       uses: KyleMayes/install-llvm-action@v2
       with:
-        version: "18.1"
+        version: "19.1"
     - name: Generating Ninja Files
       shell: bash
       run: |
