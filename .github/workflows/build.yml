@@ -36,7 +36,7 @@ jobs:
         else
           sudo apt-get update -qq
           sudo apt-get install -y \
-            git g++ g++-multilib clang-12 pandoc dpkg-dev \
+            git g++ g++-multilib clang-18 pandoc dpkg-dev \
             libcurl4-openssl-dev libgif-dev libjpeg-dev \
             libz-dev libpng-dev libtinyxml-dev libpixman-1-dev \
             libx11-dev libxcursor-dev ninja-build zip unzip \
@@ -84,7 +84,7 @@ jobs:
             export gn_flags='extra_cflags=["-stdlib=libc++", "-mmacosx-version-min=10.9"] extra_cflags_cc=["-frtti"]'
           fi
         else
-          export gn_flags='cc="clang-12" cxx="clang++-12"'
+          export gn_flags='cc="clang-18" cxx="clang++-18"'
         fi
         gn gen out/${{ matrix.mode }}-${{ matrix.arch }} --args="is_debug=$is_debug is_official_build=$is_official skia_use_system_expat=false skia_use_system_icu=false skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false skia_use_system_libwebp=false skia_use_system_zlib=false skia_use_freetype=true skia_use_harfbuzz=true skia_pdf_subset_harfbuzz=true skia_use_system_freetype2=false skia_use_system_harfbuzz=false target_cpu=\"${{ matrix.arch }}\" $gn_flags"
     - name: Compiling
