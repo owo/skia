@@ -42,24 +42,14 @@ jobs:
             libx11-dev libxcursor-dev ninja-build zip unzip \
             libfontconfig-dev libgl1-mesa-dev
         fi
-    - name: Download depot_tools (macOS, Linux)
-      if: runner.os != 'Windows'
+    - name: Download depot_tools
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       run: |
         git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
-        echo "$DEPOT_TOOLS" >> $GITHUB_PATH
-        echo "$DEPOT_TOOLS/python2-bin" >> $GITHUB_PATH
-        echo "$DEPOT_TOOLS/python-bin" >> $GITHUB_PATH
-    - name: Download depot_tools (Windows)
-      if: runner.os == 'Windows'
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      run: |
-        git clone 'https://chromium.googlesource.com/chromium/tools/depot_tools.git'
-        echo "$DEPOT_TOOLS" >> $env:GITHUB_PATH
-        echo "$DEPOT_TOOLS/python2-bin" >> $env:GITHUB_PATH
-        echo "$DEPOT_TOOLS/python-bin" >> $env:GITHUB_PATH
+        echo "::add-path::${PWD}/depot_tools"
+        echo "::add-path::${PWD}/depot_tools/python2"
+        echo "::add-path::${PWD}/depot_tools/python"
     - name: Sync Depot Tools
       run: gclient
     - name: Sync Deps
